@@ -20,6 +20,7 @@ public class User {
     private String name;
     private String email;
     private String phone;
+    private String age;
     private String passwordHash;
     private String jwtRefreshToken;
     private Instant createdAt;

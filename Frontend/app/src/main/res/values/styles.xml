@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="Theme.Frontend" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Couleurs principales -->
+        <item name="colorPrimary">#F0AB46</item> <!-- orange -->
+        <item name="colorPrimaryDark">#F57C00</item>
+        <item name="colorAccent">#FFC107</item>
+        <!-- Personnalisation du bouton flottant, etc. -->
+    </style>
+
+</resources>

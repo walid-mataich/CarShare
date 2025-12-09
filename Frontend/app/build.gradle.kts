@@ -64,4 +64,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation("androidx.constraintlayout:constraintlayout:2.1.5")
+
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+// ou version plus récente
+    implementation("androidx.appcompat:appcompat:1.6.1")
 }

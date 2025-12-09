@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#FFF7F2"
+    tools:context=".SignUpActivity">
+
+    <!-- Titre -->
+    <TextView
+        android:id="@+id/signUpTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Créer un compte"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#F0AB46"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="60dp"/>
+
+    <!-- Nom d'utilisateur -->
+    <EditText
+        android:id="@+id/usernameInput"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="Nom d'utilisateur"
+        android:padding="12dp"
+        android:background="@drawable/input_bg"
+        app:layout_constraintTop_toBottomOf="@id/signUpTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <!-- Email -->
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="Email"
+        android:padding="12dp"
+        android:background="@drawable/input_bg"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toBottomOf="@id/usernameInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Date de naissance -->
+    <EditText
+        android:id="@+id/dobInput"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="Date de naissance"
+        android:focusable="false"
+        android:clickable="true"
+        android:padding="12dp"
+        android:background="@drawable/input_bg"
+        app:layout_constraintTop_toBottomOf="@id/emailInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Mot de passe -->
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="Mot de passe"
+        android:padding="12dp"
+        android:background="@drawable/input_bg"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/dobInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Bouton S'inscrire -->
+    <Button
+        android:id="@+id/signUpBtn"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:text="S'inscrire"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#F0AB46"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/passwordInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/btn_rounded_orange"/>
+
+    <!-- Lien vers connexion -->
+    <TextView
+        android:id="@+id/loginRedirect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Déjà un compte ? Se connecter"
+        android:textColor="#6A6A6A"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/signUpBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
