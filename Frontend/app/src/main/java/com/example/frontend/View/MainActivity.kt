@@ -1,13 +1,12 @@
-package com.example.frontend
+package com.example.frontend.View
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import com.example.frontend.R
+import com.example.frontend.View.SignUpActivity
 
-import android.widget.ImageView
-import android.widget.Toast
-import com.example.frontend.R // Ajoutez cette ligne
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="24dp"
     android:background="#FFF7F2"
-    tools:context=".SignUpActivity">
+    tools:context=".View.SignUpActivity">
 
     <!-- Titre -->
     <TextView

@@ -1,14 +1,14 @@
-package com.example.frontend
+package com.example.frontend.View
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import android.app.DatePickerDialog
+import com.example.frontend.R
 import java.util.Calendar
-
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -33,7 +33,8 @@ class SignUpActivity : AppCompatActivity() {
 
             val datePicker = DatePickerDialog(this, { _, y, m, d ->
                 // Formater la date en dd/MM/yyyy
-                val selectedDate = "${d.toString().padStart(2,'0')}/${(m+1).toString().padStart(2,'0')}/$y"
+                val selectedDate =
+                    "${d.toString().padStart(2, '0')}/${(m + 1).toString().padStart(2, '0')}/$y"
                 dobInput.setText(selectedDate)
             }, year, month, day)
 

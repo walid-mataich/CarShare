@@ -1,6 +1,6 @@
-package com.example.frontend
+package com.example.frontend.api
 
-
+import com.example.frontend.model.ResponseData
 import retrofit2.Call
 import retrofit2.http.GET
 

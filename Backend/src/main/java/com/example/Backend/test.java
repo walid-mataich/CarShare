@@ -13,8 +13,6 @@ public class test {
 
     @GetMapping("/test")
     public testResp testAPI() {
-
-
         return new testResp("ta wllahila khdam");
     }
 }
