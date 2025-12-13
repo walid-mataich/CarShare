@@ -4,6 +4,7 @@ import com.example.frontend.model.LoginRequest
 import com.example.frontend.model.RegisterRequest
 import com.example.frontend.model.RegisterResponse
 import com.example.frontend.model.ResponseData
+import com.example.frontend.model.TripRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -23,4 +24,7 @@ interface ApiInterface {
     @POST("user/chat/fcm-token")
     suspend fun updateFcmToken(@Query("token") token: String)
 
+
+    @POST("auth/trips")
+    fun createTrip(@Body trip: TripRequest): Call<Void>
 }
