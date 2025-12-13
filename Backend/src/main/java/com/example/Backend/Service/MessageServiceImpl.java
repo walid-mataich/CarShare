@@ -7,11 +7,16 @@ import com.example.Backend.Repository.MessageRepository;
 import com.example.Backend.Repository.TripRepository;
 import com.example.Backend.Repository.UserRepository;
 import com.example.Backend.dto.ChatMessageDTO;
+import com.example.Backend.dto.ConversationResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class MessageServiceImpl {
@@ -44,11 +49,58 @@ public class MessageServiceImpl {
         return saved;
     }
 
-    public List<Message> getConversation(Long userId1, Long userId2){
+    public List<Message> getConversation(String userEmail1, Long userId2){
+        Long userId1 = userRepo.findByEmail(userEmail1).orElseThrow().getId();
         return messageRepo.findBySenderIdAndReceiverIdOrReceiverIdAndSenderIdOrderBySentAtAsc(
                 userId1, userId2, userId1, userId2
         );
     }
+
+
+    public List<ConversationResponseDTO> getMyConversations(String email) {
+
+        Long myId = userRepo.findByEmail(email).orElseThrow().getId();
+
+        List<Message> messages = messageRepo.findAllByUser(myId);
+
+        Map<Long, Message> lastMessagesPerUser = new HashMap<>();
+
+        for (Message msg : messages) {
+            Long otherUserId =
+                    msg.getSender().getId().equals(myId)
+                            ? msg.getReceiver().getId()
+                            : msg.getSender().getId();
+
+            if (!lastMessagesPerUser.containsKey(otherUserId)
+                    || msg.getSentAt().isAfter(
+                    lastMessagesPerUser.get(otherUserId).getSentAt())) {
+
+                lastMessagesPerUser.put(otherUserId, msg);
+            }
+        }
+
+        return lastMessagesPerUser.entrySet().stream()
+                .map(entry -> {
+                    Message msg = entry.getValue();
+                    User otherUser =
+                            msg.getSender().getId().equals(myId)
+                                    ? msg.getReceiver()
+                                    : msg.getSender();
+
+                    return ConversationResponseDTO.builder()
+                            .userId(otherUser.getId())
+                            .username(otherUser.getEmail()) // or username
+                            .lastMessage(msg.getContent())
+                            .lastMessageTime(msg.getSentAt())
+                            .build();
+                })
+                .sorted(Comparator.comparing(
+                        ConversationResponseDTO::getLastMessageTime).reversed())
+                .toList();
+    }
+
+
+
 
     public void markAsRead(Long messageId){
         Message msg = messageRepo.findById(messageId).orElseThrow();

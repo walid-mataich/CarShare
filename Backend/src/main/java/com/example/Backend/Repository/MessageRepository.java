@@ -5,6 +5,7 @@ import com.example.Backend.Model.User;
 import org.antlr.v4.runtime.atn.SemanticContext;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -14,5 +15,11 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
     List<Message> findBySenderIdAndReceiverIdOrReceiverIdAndSenderIdOrderBySentAtAsc(
             Long senderId1, Long receiverId1, Long senderId2, Long receiverId2
     );
+
+    @Query("""
+            SELECT m FROM Message m
+            WHERE m.sender.id = :userId OR m.receiver.id = :userId
+            """)
+    List<Message> findAllByUser(@Param("userId") Long userId);
 
 }
