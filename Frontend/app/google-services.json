@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "204599209760",
+    "project_id": "carshareappchat",
+    "storage_bucket": "carshareappchat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204599209760:android:b8e74d7d5339ef77963145",
+        "android_client_info": {
+          "package_name": "com.example.frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDazamZnGhv0sdqiSDUpnPoUNqafplP5Do"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

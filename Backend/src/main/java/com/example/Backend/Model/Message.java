@@ -23,9 +23,6 @@ public class Message {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "trip_id")
-    private Trip trip; // related to a trip
 
     private String content;
     private Instant sentAt;

@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+    id("com.google.gms.google-services")
+
 }
 
 android {
@@ -68,4 +71,15 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 // ou version plus récente
     implementation("androidx.appcompat:appcompat:1.6.1")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+
+    implementation("com.google.android.material:material:1.9.0")
+
+    implementation("com.google.firebase:firebase-messaging:23.2.0")
+
+    implementation("com.google.android.material:material:1.12.0")
+
 }

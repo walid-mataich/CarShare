@@ -37,8 +37,8 @@ public class Trip {
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
-    private List<Message> relatedMessages;
+//    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+//    private List<Message> relatedMessages;
 
     public Trip createTrip() { return this; }
     public Trip updateTrip() { return this; }

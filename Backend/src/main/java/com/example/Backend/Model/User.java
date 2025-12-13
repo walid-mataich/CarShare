@@ -3,8 +3,12 @@ package com.example.Backend.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -13,18 +17,25 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class User implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String email;
     private String phone;
-    private String age;
-    private String passwordHash;
-    private String jwtRefreshToken;
-    private Instant createdAt;
-    private boolean isVerified;
+    private int age;
+    private String password;
+
+    private String fcmToken;
+
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public enum Role{
+        UTILISATEUR
+    }
 
     // owns vehicles
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -45,8 +56,38 @@ public class User {
     @OneToMany(mappedBy = "receiver")
     private List<Message> receivedMessages;
 
-    // notifications
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Notification> notifications;
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
 
