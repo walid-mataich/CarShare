@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#FFF7F2">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Route -->
+                <TextView
+                    android:id="@+id/txtRoute"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#333333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="false"/>
+
+                <!-- Conducteur -->
+                <TextView
+                    android:id="@+id/txtDriver"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#6A6A6A"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="false"/>
+
+                <!-- Heure de départ -->
+                <TextView
+                    android:id="@+id/txtDeparture"
+                    android:layout_marginTop="2dp"
+                    android:textColor="#6A6A6A"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="false"/>
+
+                <!-- Prix unitaire et places totales -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtUnitPrice"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:clickable="false"/>
+
+                    <TextView
+                        android:id="@+id/txtSeats"
+                        android:layout_marginStart="16dp"
+                        android:textColor="#6A6A6A"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:clickable="false"/>
+                </LinearLayout>
+
+                <!-- Places restantes -->
+                <TextView
+                    android:id="@+id/txtRemainingSeats"
+                    android:layout_marginTop="6dp"
+                    android:textColor="#6A6A6A"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="false"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Saisie du nombre de places à réserver -->
+        <EditText
+            android:id="@+id/edtSeats"
+            android:hint="Nombre de places"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Prix total calculé -->
+        <TextView
+            android:id="@+id/txtTotalPrice"
+            android:text="Prix total : 0 DH"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Bouton confirmer -->
+        <Button
+            android:id="@+id/btnConfirm"
+            android:text="Confirmer la réservation"
+            android:background="@drawable/btn_rounded_orange"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</ScrollView>

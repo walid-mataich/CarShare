@@ -52,7 +52,6 @@ class CreateTripActivity : ComponentActivity() {
     // INITIALISATION VUES
     // --------------------
     private fun bindViews() {
-        driverIdInput = findViewById(R.id.driverIdInput)
         dateTimeInput = findViewById(R.id.dateTimeInput)
         seatsInput = findViewById(R.id.seatsInput)
         priceInput = findViewById(R.id.priceInput)

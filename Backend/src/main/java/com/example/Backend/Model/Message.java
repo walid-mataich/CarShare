@@ -1,6 +1,7 @@
 package com.example.Backend.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import jakarta.persistence.*;
 import java.time.Instant;
@@ -30,3 +31,4 @@ public class Message {
 
     public void markRead() { this.read = true; }
 }
+
