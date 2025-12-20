@@ -14,53 +14,40 @@
         android:id="@+id/createTripTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="Créer un trajet"
+        android:textColor="#F0AB46"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="#F0AB46"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"/>
-
-    <!-- Conducteur ID -->
-    <EditText
-        android:id="@+id/driverIdInput"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:hint="ID du conducteur"
-        android:inputType="number"
-        android:padding="12dp"
-        android:background="@drawable/input_bg"
-        app:layout_constraintTop_toBottomOf="@id/createTripTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Bouton origine -->
+
     <Button
         android:id="@+id/originBtn"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_rounded_orange"
         android:text="Choisir l’origine"
         android:textColor="#FFFFFF"
-        android:background="@drawable/btn_rounded_orange"
-        app:layout_constraintTop_toBottomOf="@id/driverIdInput"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createTripTitle" />
 
-    <!-- Texte origine -->
     <TextView
         android:id="@+id/originText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:text="Aucune origine sélectionnée"
         android:textColor="#6A6A6A"
-        app:layout_constraintTop_toBottomOf="@id/originBtn"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="6dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/originBtn" />
 
     <!-- Bouton destination -->
     <Button
@@ -80,12 +67,13 @@
         android:id="@+id/destinationText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:text="Aucune destination sélectionnée"
         android:textColor="#6A6A6A"
-        app:layout_constraintTop_toBottomOf="@id/destinationBtn"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="6dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/destinationBtn" />
 
     <!-- Date et heure -->
     <EditText

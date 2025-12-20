@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:elevation="3dp"
+    android:padding="20dp"
+    app:cardCornerRadius="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Nom de l'utilisateur qui a demandé -->
+        <TextView
+            android:id="@+id/txtRequesterName"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Email ou info supplémentaire -->
+        <TextView
+            android:id="@+id/txtRequesterEmail"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Statut de la reservation -->
+        <TextView
+            android:id="@+id/txtStatus"
+            android:textSize="14sp"
+            android:textColor="#FF5722"
+            android:layout_marginBottom="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Nombre de places -->
+        <TextView
+            android:id="@+id/txtSeatsRequested"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Montant -->
+        <TextView
+            android:id="@+id/txtAmount"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Bouton pour accepter la reservation -->
+        <Button
+            android:id="@+id/btnAcceptReservation"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="Accepter"
+            android:layout_marginBottom="10dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_rounded_orange"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

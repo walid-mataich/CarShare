@@ -17,18 +17,18 @@ class HomeActivity : AppCompatActivity() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.home_bottom_nav)
 
         // Load default fragment
-        loadFragment(TrajetsFragment())
+        loadFragment(MyTripsFragment())
 
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_trajets ->
-                    loadFragment(TrajetsFragment())
+                    loadFragment(MyTripsFragment())
 
                 R.id.nav_messages ->
                     loadFragment(MessagesFragment())
 
                 R.id.nav_reservations ->
-                    loadFragment(ReservationsFragment())
+                    loadFragment(MyReservationsFragment())
 
                 R.id.nav_profile ->
                     loadFragment(ProfileFragment())

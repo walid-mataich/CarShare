@@ -1,10 +1,9 @@
 package com.example.Backend.Config;
 
-
-
 import com.example.Backend.Service.JWTUtils;
 import com.example.Backend.Service.TokenBlacklistService;
 import com.example.Backend.Service.UserDetailsServiceImpl;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,8 +25,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     @Autowired
     private JWTUtils jwtUtils;
 
-
-
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
@@ -35,17 +32,32 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     private TokenBlacklistService tokenBlacklistService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        return path.startsWith("/auth/")
+                || path.startsWith("/public/");
+    }
+
+    @Override
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
+    ) throws ServletException, IOException {
+
         final String authHeader = request.getHeader("Authorization");
-        final String jwtToken;
-        final String userEmail;
 
-
-        if (authHeader == null || authHeader.isBlank()) {
-            filterChain.doFilter(request,response);
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
             return;
         }
 
+        try {
+            String jwtToken = authHeader.substring(7);
+            String userEmail = jwtUtils.extractUsername(jwtToken);
+
+            if (userEmail != null &&
+                    SecurityContextHolder.getContext().getAuthentication() == null) {
         jwtToken = authHeader.substring(7);
 
 
@@ -56,24 +68,39 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
         userEmail = jwtUtils.extractUsername(jwtToken);
 
+                UserDetails userDetails =
+                        userDetailsService.loadUserByUsername(userEmail);
+
+                if (jwtUtils.isTokenValid(jwtToken, userDetails)) {
 
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
 if (jwtUtils.isTokenValid(jwtToken,userDetails)){
 
-    SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-    UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-            userDetails,null,userDetails.getAuthorities()
-    );
+                    UsernamePasswordAuthenticationToken authToken =
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails,
+                                    null,
+                                    userDetails.getAuthorities()
+                            );
 
-    token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-    securityContext.setAuthentication(token);
-    SecurityContextHolder.setContext(securityContext);
+                    authToken.setDetails(
+                            new WebAuthenticationDetailsSource()
+                                    .buildDetails(request)
+                    );
 
-}
+                    SecurityContextHolder.getContext()
+                            .setAuthentication(authToken);
+                }
+            }
 
+        } catch (JwtException | IllegalArgumentException e) {
+
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
-        filterChain.doFilter(request,response);
+
+        filterChain.doFilter(request, response);
     }
 }

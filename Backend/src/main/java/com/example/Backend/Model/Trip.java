@@ -2,11 +2,12 @@ package com.example.Backend.Model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.List;
-
 @Entity
 @Table(name = "trips")
 @Data
@@ -32,6 +33,7 @@ public class Trip {
 
     private Instant departureTime;
     private int availableSeats;
+    private int placeRestant;
     private double price;
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)

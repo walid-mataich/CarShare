@@ -2,30 +2,44 @@ package com.example.Backend.Controller;
 
 import com.example.Backend.Model.Location;
 import com.example.Backend.Model.Trip;
+import com.example.Backend.Model.User;
+import com.example.Backend.Repository.TripRepository;
+import com.example.Backend.Repository.UserRepository;
 import com.example.Backend.Service.TripService;
 import com.example.Backend.Service.TripServiceImpl;
+import com.example.Backend.dto.TripDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth/trips")
+@RequestMapping("/user/trips")
 @CrossOrigin(origins = "*")
 public class TripController {
 
     private final TripServiceImpl tripService;
+    @Autowired
+    private UserRepository userRepo;
+    @Autowired
+    private TripRepository tripRepository;
 
     public TripController(TripServiceImpl tripService) {
+
         this.tripService = tripService;
     }
 
-    @PostMapping
-    public ResponseEntity<?> createTrip(@RequestBody Map<String, Object> tripMap) {
+    @PostMapping("/create")
+    public ResponseEntity<?> createTrip(@RequestBody Map<String, Object> tripMap, Principal principal) {
         try {
-            Long driverId = Long.valueOf(tripMap.get("driverId").toString());
+            String userEmail = String.valueOf(principal.getName());
+            User user = userRepo.findByEmail(userEmail).orElseThrow();
+            Long driverId = user.getId();
 
             Map<String, Object> originMap = (Map<String, Object>) tripMap.get("origin");
             Map<String, Object> destinationMap = (Map<String, Object>) tripMap.get("destination");
@@ -55,5 +69,47 @@ public class TripController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<TripDTO>> getMyTrips(Principal principal) {
+        String userEmail = String.valueOf(principal.getName());
+        User user=userRepo.findByEmail(userEmail).orElseThrow();
+        return ResponseEntity.ok(
+                tripService.getMyTrips(user)
+        );
+    }
+    @GetMapping
+    public ResponseEntity<List<TripDTO>> getAllTrips() {
+        return ResponseEntity.ok(
+                tripService.getAllTrips()
+        );
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<TripDTO> getTripById(@PathVariable Long id) {
+        Trip trip = tripRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (trip != null) {
+            TripDTO tripDTO = new TripDTO(
+                    trip.getId(),
+                    trip.getOrigin().getAddress(),
+                    trip.getOrigin().getLat(),
+                    trip.getOrigin().getLng(),
+                    trip.getDestination().getAddress(),
+                    trip.getDestination().getLat(),
+                    trip.getDestination().getLng(),
+                    trip.getDriver().getName(),
+                    trip.getDepartureTime().toString(),
+                    trip.getPrice(),
+                    trip.getAvailableSeats(),
+                    trip.getPlaceRestant()
+            );
+
+            return ResponseEntity.ok(tripDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
 

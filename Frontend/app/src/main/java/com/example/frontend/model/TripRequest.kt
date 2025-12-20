@@ -1,10 +1,10 @@
 package com.example.frontend.model
 
 data class TripRequest(
-    val driverId: Long,
-    val origin: LocationRequest,
-    val destination: LocationRequest,
-    val departureTime: String,
-    val availableSeats: Int,
-    val price: Double
+    val driverId: Long? = null,
+    val origin: LocationRequest? = null,
+    val destination: LocationRequest? = null,
+    val departureTime: String? = null,
+    val availableSeats: Int? = null,
+    val price: Double? = null
 )
