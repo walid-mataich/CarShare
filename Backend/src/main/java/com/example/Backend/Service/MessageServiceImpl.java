@@ -89,7 +89,8 @@ public class MessageServiceImpl {
 
                     return ConversationResponseDTO.builder()
                             .userId(otherUser.getId())
-                            .username(otherUser.getEmail()) // or username
+                            .username(otherUser.getEmail())
+                            .name(otherUser.getName())// or username
                             .lastMessage(msg.getContent())
                             .lastMessageTime(msg.getSentAt())
                             .build();

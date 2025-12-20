@@ -24,8 +24,19 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         authViewModel.repository.setContext(this)
+
+
+        // Initialize Retrofit if needed
+        RetrofitInstance.init(this)
+
+
+
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        print(" entered login activity")
 
         val emailInput = findViewById<EditText>(R.id.emailInput)
         val passwordInput = findViewById<EditText>(R.id.passwordInput)

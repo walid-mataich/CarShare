@@ -1,14 +1,20 @@
 package com.example.frontend.api
 
+import com.example.frontend.model.ConversationItem
 import com.example.frontend.model.LoginRequest
+import com.example.frontend.model.Message
 import com.example.frontend.model.RegisterRequest
 import com.example.frontend.model.RegisterResponse
 import com.example.frontend.model.ResponseData
+import com.example.frontend.model.SendMessageRequest
 import com.example.frontend.model.TripRequest
+import com.example.frontend.model.UserItem
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiInterface {
@@ -27,4 +33,27 @@ interface ApiInterface {
 
     @POST("auth/trips")
     fun createTrip(@Body trip: TripRequest): Call<Void>
+
+    @GET("/user/chat/conversations")
+    suspend fun getMyConversations(): List<ConversationItem>
+
+    @GET("/user/chat/conversation/{userId}")
+    suspend fun getConversation(
+        @Path("userId") userId: Long
+    ): List<Message>
+
+    @POST("/user/chat/send")
+    suspend fun sendMessage(
+        @Body request: SendMessageRequest
+    ): Message
+
+
+    @POST("auth/logout")
+    suspend fun logout(): Response<Unit>
+
+
+    @GET("/user/chat/users")
+    suspend fun getAllUsers(): List<UserItem>
+
+
 }

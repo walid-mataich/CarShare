@@ -14,6 +14,7 @@ import java.time.Instant;
 public class ConversationResponseDTO {
     private Long userId;
     private String username;
+    private String name;
     private String lastMessage;
     private Instant lastMessageTime;
 }
