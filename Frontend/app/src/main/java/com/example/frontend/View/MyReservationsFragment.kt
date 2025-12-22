@@ -43,7 +43,11 @@ class MyReservationsFragment : Fragment() {
             },
             onCancelClick = { reservation ->
                 cancelReservation(reservation)
+            },
+            onContactDriverClick = { reservation ->
+                contactDriver(reservation)   // NEW
             }
+
         )
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -88,6 +92,24 @@ class MyReservationsFragment : Fragment() {
             .addToBackStack(null)
             .commit()
     }
+
+    private fun contactDriver(reservation: Reservation) {
+        val driverId = reservation.driverId
+        val driverName = reservation.driverName
+
+        val fragment = MessagesFragment().apply {
+            arguments = Bundle().apply {
+                putLong("openConversationWith", driverId)
+                putString("username", driverName)
+            }
+        }
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.home_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
 
     private fun cancelReservation(reservation: Reservation) {
         RetrofitInstance.apiInterface.cancelReservation(reservation.id).enqueue(object : Callback<Void> {

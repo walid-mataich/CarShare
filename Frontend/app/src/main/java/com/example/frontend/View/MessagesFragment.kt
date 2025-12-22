@@ -77,8 +77,10 @@ class MessagesFragment : Fragment() {
 
         viewModel.loadConversations()
 
-        val userId = activity?.intent?.getLongExtra("openConversationWith", -1) ?: -1
-        val username = activity?.intent?.getStringExtra("username") ?: ""
+        // read arguments passed when creating the fragment
+        val args = arguments
+        val userId = args?.getLong("openConversationWith", -1L) ?: -1L
+        val username = args?.getString("username") ?: ""
         if (userId > 0) {
             openConversationByUserId(userId, username)
         }

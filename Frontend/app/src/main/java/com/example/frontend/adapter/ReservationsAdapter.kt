@@ -15,7 +15,8 @@ import java.time.format.DateTimeFormatter
 class ReservationsAdapter(
     private var reservations: List<Reservation>,
     private val onItemClick: (Reservation) -> Unit,
-    private val onCancelClick: (Reservation) -> Unit
+    private val onCancelClick: (Reservation) -> Unit,
+    private val onContactDriverClick: (Reservation) -> Unit
 ) : RecyclerView.Adapter<ReservationsAdapter.ReservationViewHolder>() {
 
     inner class ReservationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -28,6 +29,7 @@ class ReservationsAdapter(
         val txtRequestedAt: TextView = view.findViewById(R.id.txtRequestedAtres)
         val txtRespondedAt: TextView = view.findViewById(R.id.txtRespondedAtres)
         val btnCancel: Button = view.findViewById(R.id.btnCancel)
+        val btnContactDriver: Button = view.findViewById(R.id.btnContactDriver)
     }
 
     private val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy • HH:mm")
@@ -95,9 +97,14 @@ class ReservationsAdapter(
         holder.btnCancel.setOnClickListener {
             onCancelClick(reservation)
         }
+
+        holder.btnContactDriver.setOnClickListener { onContactDriverClick(reservation) } // NEW
+
+
         holder.itemView.setOnClickListener {
             onItemClick(reservation)
         }
+
     }
 
     override fun getItemCount(): Int = reservations.size

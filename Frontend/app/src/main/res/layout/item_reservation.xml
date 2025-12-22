@@ -102,6 +102,15 @@
             android:paddingBottom="8dp"
             android:layout_gravity="start"
             android:stateListAnimator="@null" />
+        <Button
+            android:id="@+id/btnContactDriver"
+            android:layout_width="wrap_content"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_rounded_orange"
+            android:layout_height="wrap_content"
+            android:text="Contacter le conducteur"
+            android:layout_marginTop="8dp"/>
+
 
     </LinearLayout>
 

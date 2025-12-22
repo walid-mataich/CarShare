@@ -16,5 +16,6 @@ data class Reservation(
     val tripOrigin: String,
     val tripDestination: String,
     val driverName: String,
+    val driverId: Long,
     val departureTime: String
 ) : Parcelable
