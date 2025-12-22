@@ -3,6 +3,7 @@ package com.example.Backend.Service;
 import com.example.Backend.Model.User;
 import com.example.Backend.Repository.UserRepository;
 import com.example.Backend.dto.RequestResponse;
+import com.example.Backend.dto.UserResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
 
 @Service
@@ -70,6 +72,7 @@ public class UserServiceImpl implements UserService {
             requestResponse.setExpirationTime("24Hrs");
             requestResponse.setMessage("user logged in successfully !");
             requestResponse.setNom(user.getName());
+            requestResponse.setUserId(user.getId());
             requestResponse.setEmail(user.getEmail());
         }catch (Exception e){
             requestResponse.setStatusCode(500);
@@ -78,27 +81,24 @@ public class UserServiceImpl implements UserService {
         return requestResponse;
     }
 
-//    public RequestResponse refreshToken(RequestResponse refreshTokenRequest){
-//        RequestResponse requestResponse = new RequestResponse();
-//        try{
-//            String email = jwtUtils.extractUsername(refreshTokenRequest.getToken());
-//            Administrateur admin = userRepository.findByEmail(email).orElseThrow();
-//            if (jwtUtils.isTokenValid(refreshTokenRequest.getToken(), admin)) {
-//                var jwt = jwtUtils.generateToken(admin);
-//                requestResponse.setStatusCode(200);
-//                requestResponse.setToken(jwt);
-//                requestResponse.setRefreshToken(refreshTokenRequest.getToken());
-//                requestResponse.setExpirationTime("24Hr");
-//                requestResponse.setMessage("Successfully Refreshed Token");
-//            }
-//            requestResponse.setStatusCode(200);
-//            return requestResponse;
-//
-//        }catch (Exception e){
-//            requestResponse.setStatusCode(500);
-//            requestResponse.setMessage(e.getMessage());
-//            return requestResponse;
-//        }
-//    }
+    public void deleteUserFcmToken(String userEmail){
+        User user = userRepository.findByEmail(userEmail).orElseThrow();
+
+        user.setFcmToken(null);
+
+        userRepository.save(user);
+    }
+
+
+    public List<UserResponseDTO> getAllUsersExcept(String email) {
+        var currentUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return userRepository.findAllByIdNot(currentUser.getId())
+                .stream()
+                .map(u -> new UserResponseDTO(u.getId(), u.getName()))
+                .toList();
+    }
+
 
 }

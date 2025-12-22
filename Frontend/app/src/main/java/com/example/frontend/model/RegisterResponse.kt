@@ -9,5 +9,6 @@ data class RegisterResponse(
     val expirationTime: String?,
     val email: String?,
     val nom: String?,
-    val age: Int?
+    val age: Int?,
+    val userId: Long
 )

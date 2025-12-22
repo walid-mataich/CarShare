@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="4dp"
+    card_view:cardBackgroundColor="#FFFFFF">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Route -->
+        <TextView
+            android:id="@+id/txtTrip"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Statut -->
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_marginTop="4dp"
+            android:textColor="#6A6A6A"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Nombre de places -->
+        <TextView
+            android:id="@+id/txtSeats"
+            android:layout_marginTop="2dp"
+            android:textColor="#6A6A6A"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Conducteur -->
+        <TextView
+            android:id="@+id/txtDriver"
+            android:layout_marginTop="2dp"
+            android:textColor="#6A6A6A"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Heure de départ -->
+        <TextView
+            android:id="@+id/txtDeparture"
+            android:layout_marginTop="2dp"
+            android:textColor="#6A6A6A"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Prix total -->
+        <TextView
+            android:id="@+id/txtAmountres"
+            android:layout_marginTop="2dp"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Requested At -->
+        <TextView
+            android:id="@+id/txtRequestedAtres"
+            android:layout_marginTop="2dp"
+            android:textColor="#6A6A6A"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Responded At -->
+        <TextView
+            android:id="@+id/txtRespondedAtres"
+            android:layout_marginTop="2dp"
+            android:textColor="#6A6A6A"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/btn_rounded_orange"
+            android:textColor="#FFFFFF"
+            android:text="Annuler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_gravity="start"
+            android:stateListAnimator="@null" />
+        <Button
+            android:id="@+id/btnContactDriver"
+            android:layout_width="wrap_content"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_rounded_orange"
+            android:layout_height="wrap_content"
+            android:text="Contacter le conducteur"
+            android:layout_marginTop="8dp"/>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

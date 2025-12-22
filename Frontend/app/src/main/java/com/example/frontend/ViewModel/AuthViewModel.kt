@@ -1,6 +1,7 @@
 package com.example.frontend.ViewModel
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,6 +15,10 @@ class AuthViewModel() : ViewModel() {
 
 
      val repository = AuthRepository()
+
+
+    private val _logoutResult = MutableLiveData<Boolean>()
+    val logoutResult: LiveData<Boolean> = _logoutResult
 
     // LiveData à observer depuis l'Activity
     val signUpResponse = MutableLiveData<RegisterResponse?>()
@@ -45,5 +50,28 @@ class AuthViewModel() : ViewModel() {
             }
         }
     }
+
+    // New logout method
+    fun logout(context: Context) {
+        repository.setContext(context)
+        viewModelScope.launch {
+            try {
+                // First, call backend logout API
+                val success = repository.logout()
+                // Then clear local token regardless of backend result
+                repository.clearToken()
+                _logoutResult.postValue(success)
+            } catch (e: Exception) {
+                // Even if API call fails, clear local token
+                repository.clearToken()
+                _logoutResult.postValue(false)
+            }
+        }
+    }
+
+
+
+
+
 
 }

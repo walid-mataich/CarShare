@@ -1,6 +1,8 @@
 package com.example.Backend.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -52,7 +54,6 @@ public class User implements UserDetails {
     // messages sent/received
     @OneToMany(mappedBy = "sender")
     private List<Message> sentMessages;
-
     @OneToMany(mappedBy = "receiver")
     private List<Message> receivedMessages;
 

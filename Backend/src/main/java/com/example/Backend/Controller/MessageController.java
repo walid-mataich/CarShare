@@ -3,9 +3,14 @@ package com.example.Backend.Controller;
 import com.example.Backend.Model.Message;
 import com.example.Backend.Service.MessageService;
 import com.example.Backend.Service.MessageServiceImpl;
+import com.example.Backend.Service.TokenBlacklistService;
+import com.example.Backend.Service.UserServiceImpl;
 import com.example.Backend.dto.ChatMessageDTO;
+import com.example.Backend.dto.ConversationResponseDTO;
 import com.example.Backend.dto.MessageResponseDTO;
+import com.example.Backend.dto.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -16,6 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MessageController {
     private final MessageServiceImpl messageService;
+    private final UserServiceImpl userService;
+
 
     @PostMapping("/send")
     public MessageResponseDTO send(@RequestBody ChatMessageDTO dto, Principal principal){
@@ -28,10 +35,16 @@ public class MessageController {
 
     @GetMapping("/conversation/{userId}")
     public List<MessageResponseDTO> getConversation(@PathVariable Long userId, Principal principal){
-        Long myId = Long.valueOf(principal.getName());
-        return messageService.getConversation(myId, userId).stream()
+        String email = String.valueOf(principal.getName());
+        return messageService.getConversation(email, userId).stream()
                 .map(this::toDto)
                 .toList();
+    }
+
+    @GetMapping("/conversations")
+    public List<ConversationResponseDTO> getMyConversations(Principal principal) {
+        String email = String.valueOf(principal.getName());
+        return messageService.getMyConversations(email);
     }
 
     @PostMapping("/read/{messageId}")
@@ -44,6 +57,16 @@ public class MessageController {
         String senderEmail = String.valueOf(principal.getName());
         messageService.updateFcmToken(senderEmail, token);
     }
+
+    @GetMapping("/users")
+    public List<UserResponseDTO> getAllUsers(Principal principal) {
+        String email = principal.getName();
+
+        return userService.getAllUsersExcept(email);
+    }
+
+
+
 
     private MessageResponseDTO toDto(Message msg){
         MessageResponseDTO dto = new MessageResponseDTO();

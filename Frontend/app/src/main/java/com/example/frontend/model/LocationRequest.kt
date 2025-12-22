@@ -1,7 +1,7 @@
 package com.example.frontend.model
 
 data class LocationRequest(
-    val lat: Double,
-    val lng: Double,
-    val address: String
+    val lat: Double? = null,
+    val lng: Double? = null,
+    val address: String? = null
 )

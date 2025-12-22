@@ -9,6 +9,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -16,18 +17,21 @@ class HomeActivity : AppCompatActivity() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.home_bottom_nav)
 
         // Load default fragment
-        loadFragment(MessagesFragment())
+        loadFragment(MyTripsFragment())
 
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
+                R.id.nav_trajets ->
+                    loadFragment(MyTripsFragment())
+
                 R.id.nav_messages ->
                     loadFragment(MessagesFragment())
 
-                R.id.nav_trajets ->
-                    loadFragment(TrajetsFragment())
-
                 R.id.nav_reservations ->
-                    loadFragment(ReservationsFragment())
+                    loadFragment(MyReservationsFragment())
+
+                R.id.nav_profile ->
+                    loadFragment(ProfileFragment())
             }
             true
         }

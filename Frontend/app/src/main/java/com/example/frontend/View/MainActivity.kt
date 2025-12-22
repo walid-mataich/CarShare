@@ -31,6 +31,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val token = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+            .getString("TOKEN", null)
+
+        if (token != null) {
+            print(token)
+            // User already logged in
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+
+        }
+
+
+
+
 
         println("test")
 
@@ -70,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
         getStartedBtn.setOnClickListener {
             // Redirection vers la page d'inscription
-            val intent = Intent(this, SignUpActivity::class.java)
+            val intent = Intent(this, IntroActivity::class.java)
             startActivity(intent)
         }
 
