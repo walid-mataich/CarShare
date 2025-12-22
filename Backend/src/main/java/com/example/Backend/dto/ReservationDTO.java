@@ -25,6 +25,7 @@ public class ReservationDTO {
     private String tripOrigin;
     private String tripDestination;
     private String driverName;
+    private Long driverId;
     private String departureTime;
 
     private Long requesterId;

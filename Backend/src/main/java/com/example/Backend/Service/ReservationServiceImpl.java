@@ -29,6 +29,7 @@ public class ReservationServiceImpl implements ReservationService{
                 res.getTrip().getOrigin().getAddress(),
                 res.getTrip().getDestination().getAddress(),
                 res.getTrip().getDriver().getName(),
+                res.getTrip().getDriver().getId(),
                 res.getTrip().getDepartureTime().toString(),
                 res.getRequester().getId(),
                 res.getRequester().getName()

@@ -58,15 +58,15 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
             if (userEmail != null &&
                     SecurityContextHolder.getContext().getAuthentication() == null) {
-        jwtToken = authHeader.substring(7);
+                jwtToken = authHeader.substring(7);
 
 
-        if (tokenBlacklistService.isBlacklisted(jwtToken)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
+                if (tokenBlacklistService.isBlacklisted(jwtToken)) {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
 
-        userEmail = jwtUtils.extractUsername(jwtToken);
+                userEmail = jwtUtils.extractUsername(jwtToken);
 
                 UserDetails userDetails =
                         userDetailsService.loadUserByUsername(userEmail);
@@ -74,33 +74,36 @@ public class JWTAuthFilter extends OncePerRequestFilter {
                 if (jwtUtils.isTokenValid(jwtToken, userDetails)) {
 
 
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
-if (jwtUtils.isTokenValid(jwtToken,userDetails)){
+                    if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-                    UsernamePasswordAuthenticationToken authToken =
-                            new UsernamePasswordAuthenticationToken(
-                                    userDetails,
-                                    null,
-                                    userDetails.getAuthorities()
+                        if (jwtUtils.isTokenValid(jwtToken, userDetails)) {
+
+                            UsernamePasswordAuthenticationToken authToken =
+                                    new UsernamePasswordAuthenticationToken(
+                                            userDetails,
+                                            null,
+                                            userDetails.getAuthorities()
+                                    );
+
+                            authToken.setDetails(
+                                    new WebAuthenticationDetailsSource()
+                                            .buildDetails(request)
                             );
 
-                    authToken.setDetails(
-                            new WebAuthenticationDetailsSource()
-                                    .buildDetails(request)
-                    );
+                            SecurityContextHolder.getContext()
+                                    .setAuthentication(authToken);
+                        }
+                    }
 
-                    SecurityContextHolder.getContext()
-                            .setAuthentication(authToken);
                 }
+
+                filterChain.doFilter(request, response);
             }
 
-        } catch (JwtException | IllegalArgumentException e) {
+        }
+        catch(JwtException | IllegalArgumentException e){
 
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
-        }
-
-        filterChain.doFilter(request, response);
-    }
+        }}
 }
