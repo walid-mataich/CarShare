@@ -1,4 +1,4 @@
-package com.example.frontend.View
+package com.example.frontend.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.frontend.R
 import com.example.frontend.model.Message
-import java.text.SimpleDateFormat
-import java.util.*
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class MessageAdapter(val conversationUserId: Long) : ListAdapter<Message, MessageAdapter.VH>(DIFF) {
 
@@ -30,7 +33,7 @@ class MessageAdapter(val conversationUserId: Long) : ListAdapter<Message, Messag
 
     override fun getItemViewType(position: Int): Int {
         val msg = getItem(position)
-        // If senderId equals conversationUserId => message received; otherwise it's sent by current user
+
         return if (msg.senderId == conversationUserId) VIEW_TYPE_RECEIVED else VIEW_TYPE_SENT
     }
 
@@ -45,26 +48,26 @@ class MessageAdapter(val conversationUserId: Long) : ListAdapter<Message, Messag
 
         private fun formatTimestamp(ts: String): String {
             return try {
-                val instant = java.time.Instant.parse(ts)
-                val zoneId = java.time.ZoneId.systemDefault()
+                val instant = Instant.parse(ts)
+                val zoneId = ZoneId.systemDefault()
 
                 val messageTime = instant.atZone(zoneId)
-                val now = java.time.ZonedDateTime.now(zoneId)
+                val now = ZonedDateTime.now(zoneId)
 
-                val timeFormatter = java.time.format.DateTimeFormatter.ofPattern("HH:mm")
-                val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("dd MMM", Locale.getDefault())
+                val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+                val dateFormatter = DateTimeFormatter.ofPattern("dd MMM", Locale.getDefault())
 
                 when {
                     messageTime.toLocalDate() == now.toLocalDate() -> {
-                        // Aujourd’hui
+
                         messageTime.format(timeFormatter)
                     }
                     messageTime.toLocalDate() == now.minusDays(1).toLocalDate() -> {
-                        // Hier
+
                         "Hier · ${messageTime.format(timeFormatter)}"
                     }
                     else -> {
-                        // Autres jours
+
                         "${messageTime.format(dateFormatter)} · ${messageTime.format(timeFormatter)}"
                     }
                 }

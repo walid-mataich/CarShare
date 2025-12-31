@@ -52,7 +52,7 @@ interface ApiInterface {
     ): Message
 
 
-    @POST("auth/logout")
+    @POST("user/logout")
     suspend fun logout(): Response<Unit>
 
 

@@ -43,7 +43,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         profileLetter.text = name.first().uppercase()
 
 
-        // Show user info
+
         nameTv.text = prefs.getString("USER_NAME", "—")
         emailTv.text = prefs.getString("USER_EMAIL", "—")
 
@@ -51,14 +51,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             performLogout()
         }
 
-        // Observe logout result
+
         viewModel.logoutResult.observe(viewLifecycleOwner) { success ->
             if (success) {
                 Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "Logged out locally", Toast.LENGTH_SHORT).show()
             }
-            // Navigate to MainActivity
+
             navigateToMainActivity()
         }
     }
@@ -71,7 +71,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         val intent = Intent(requireContext(), MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-        // Finish the current activity (HomeActivity) if we're coming from there
+
         requireActivity().finish()
     }
 

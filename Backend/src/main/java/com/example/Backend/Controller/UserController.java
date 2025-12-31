@@ -31,7 +31,7 @@ public class UserController {
         return ResponseEntity.ok(userService.login(req));
     }
 
-    @PostMapping("/auth/logout")
+    @PostMapping("/user/logout")
     public ResponseEntity<?> disconnect(
             @RequestHeader("Authorization") String authorizationHeader, Principal principal) {
 

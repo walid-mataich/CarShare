@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.frontend.R
 import com.example.frontend.ViewModel.ChatViewModel
+import com.example.frontend.adapter.ConversationAdapter
+import com.example.frontend.adapter.MessageAdapter
 import com.example.frontend.model.ConversationItem
 import com.example.frontend.model.Message
 import kotlinx.coroutines.Job
@@ -77,7 +79,7 @@ class MessagesFragment : Fragment() {
 
         viewModel.loadConversations()
 
-        // read arguments passed when creating the fragment
+
         val args = arguments
         val userId = args?.getLong("openConversationWith", -1L) ?: -1L
         val username = args?.getString("username") ?: ""
@@ -89,7 +91,7 @@ class MessagesFragment : Fragment() {
             val userId = bundle.getLong("userId", -1L)
             val username = bundle.getString("username") ?: ""
             if (userId > 0) {
-                // prefer existing conversation name if present
+
                 val conv = allConversations.firstOrNull { it.userId == userId }
                 if (conv != null) {
                     openConversationByUserId(conv.userId, conv.name)
@@ -124,7 +126,7 @@ class MessagesFragment : Fragment() {
 
         viewModel.messages.observe(viewLifecycleOwner, Observer { msgs ->
             val msgsList = msgs ?: emptyList()
-            // ensure adapter exists for current conversation user id
+
             val convUserId = currentConversationUserId
             if (convUserId != null) {
                 if (messageAdapter == null || messageAdapter?.conversationUserId != convUserId) {
@@ -141,7 +143,7 @@ class MessagesFragment : Fragment() {
         })
 
         viewModel.sentMessage.observe(viewLifecycleOwner, Observer { sent ->
-            // reload conversation after send to sync with backend
+
             currentConversationUserId?.let { viewModel.loadConversation(it) }
             messageInput.setText("")
         })

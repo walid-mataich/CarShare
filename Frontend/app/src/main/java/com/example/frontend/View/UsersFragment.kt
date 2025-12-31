@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.frontend.R
 
 import com.example.frontend.ViewModel.ChatViewModel
+import com.example.frontend.adapter.UserAdapter
 import com.example.frontend.model.UserItem
 import kotlinx.coroutines.launch
 
@@ -33,7 +34,7 @@ class UsersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Use the layout you provided (save it as fragment_users_list.xml)
+
         return inflater.inflate(R.layout.fragment_users_list, container, false)
     }
 
@@ -42,7 +43,7 @@ class UsersFragment : Fragment() {
         etSearch = view.findViewById(R.id.et_search_user)
 
         adapter = UserAdapter { user ->
-            // send result back to MessagesFragment
+
             val bundle = Bundle().apply {
                 putLong("userId", user.id)
                 putString("username", user.username)

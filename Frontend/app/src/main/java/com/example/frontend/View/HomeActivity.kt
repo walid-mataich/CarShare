@@ -16,7 +16,7 @@ class HomeActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.home_bottom_nav)
 
-        // Load default fragment
+
         loadFragment(MyTripsFragment())
 
         bottomNav.setOnItemSelectedListener { item ->

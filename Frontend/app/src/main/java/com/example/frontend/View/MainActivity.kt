@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
-                // Permission granted, you can show notifications
                 println("Notification permission granted")
             } else {
                 println("Notification permission denied")
@@ -36,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         if (token != null) {
             print(token)
-            // User already logged in
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
 
@@ -44,11 +42,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
         println("test")
 
-        // Initialize Retrofit if needed
+
         RetrofitInstance.init(this)
 
         // Get FCM token
@@ -71,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 else -> {
-                    // Request permission
+
                     requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
             }
@@ -83,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         val getStartedBtn = findViewById<Button>(R.id.getStartedBtn)
 
         getStartedBtn.setOnClickListener {
-            // Redirection vers la page d'inscription
+
             val intent = Intent(this, IntroActivity::class.java)
             startActivity(intent)
         }

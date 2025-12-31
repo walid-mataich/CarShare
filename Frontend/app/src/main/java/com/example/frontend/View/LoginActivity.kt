@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
         authViewModel.repository.setContext(this)
 
 
-        // Initialize Retrofit if needed
+
         RetrofitInstance.init(this)
 
 
@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
         val loginBtn = findViewById<Button>(R.id.loginBtn)
         val signupRedirect = findViewById<TextView>(R.id.signupRedirect)
 
-        // Login button
+
         loginBtn.setOnClickListener {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
@@ -53,11 +53,11 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Call ViewModel login function
+
             authViewModel.login(email, password)
         }
 
-        // Observe login response
+
         authViewModel.loginResponse.observe(this) { response ->
             response ?: return@observe
 
@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
 
                 FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
                     println("FCM TOKEN = $token")
-                    // Send token to backend
+
                     sendTokenToBackend(token)
                 }
             } else {
@@ -83,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Redirect to signup page
+
         signupRedirect.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
             finish()
@@ -91,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendTokenToBackend(token: String) {
-        // Use CoroutineScope with Dispatchers.IO
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 RetrofitInstance.apiInterface.updateFcmToken(token)
